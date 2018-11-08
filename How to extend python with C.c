@@ -15,7 +15,7 @@ static PyObject* say_hello(PyObject *self, PyObject *args)
         const char *name;
 
         /* The function PyArg_ParseTuple checks the argument types and convert them to C values,
-         * it uses a template string to determine the required types of the arguemtns as well as
+         * it uses a template string to determine the required types of the arguments as well as
          * the types of the C variables into which to store the converted values.
          */
         if(!PyArg_ParseTuple(args, "s", &name))
@@ -79,7 +79,7 @@ PyMODINIT_FUNC PyInit_hello(void)
  * setup.py:
  *
  * from distutils.core import setup, Extension
- * module1 = Extension('hello', sourcers = ['hellomodule.c'])
+ * module1 = Extension('hello', sources = ['hellomodule.c'])
  * setup(name = 'PackageName'. version = '1.0', description = 'This is a nice description', ext_modules = [module1])
  *
  * Then, we can build our module with:
