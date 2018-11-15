@@ -8,6 +8,10 @@ KERNEL_ACTUAL_REGEX="kernel-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}"
 KERNEL_FIRMWARE_ACTUAL_REGEX="kernel-tools-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}"
 KERNEL_DEVEL_ACTUAL_REGEX="kernel-headers-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}"
 
+#KERNEL_ACTUAL_REGEX="kernel-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}"
+#KERNEL_FIRMWARE_ACTUAL_REGEX="kernel-firmware-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}"
+#KERNEL_DEVEL_ACTUAL_REGEX="kernel-devel-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}"
+
 KERNEL_ACTUAL_VERSION=754
 KERNEL_FIRMWARE_ACTUAL_VERSION=754
 KERNEL_DEVEL_ACTUAL_VERSION=754
@@ -34,7 +38,7 @@ def checking_server_release():
 
         if(re.search(redhat_string, release, re.I) or re.search(centos_string, release, re.I)): print("OK_TO_PATCH: Release is in scope: {0}.".format(release[SEPARATOR_LOCATION:-2]))
         else: print("CANT_PATCH: Release isn't in scope: {0}.".format(release[SEPARATOR_LOCATION:-2]))
-
+        
         p2.stdout.close()
 
 def checking_server_qpk_version():
@@ -52,7 +56,7 @@ def checking_server_qpk_version():
         last_qpk = re.search(QPK_VERSION_REGEX, repository_manager)
 
         print("LAST QPK VERSION: {0}.".format(repository_manager[last_qpk.start():last_qpk.end()]))
-        
+
 def checking_for_root_space():
         print("Checking if /root has more than 20% space available...")
         first_for_root_check = ['/bin/df', '/']
@@ -74,7 +78,7 @@ def checking_for_root_space():
         else: print("OK_TO_PATCH: Root (/) has {0}% space left.".format(abs(int(root_space[:2]) - 100)))
 
         p2.stdout.close()
-
+        
 def checking_for_kernel_versions():
         print("Checking which kernel versions are needed...")
         first_for_kernel_check = ['/usr/bin/rpm', '-qa']
@@ -107,13 +111,13 @@ def checking_for_kernel_versions():
         if(kernel_firmware_version < KERNEL_FIRMWARE_ACTUAL_VERSION): print("NEED KERNEL FIRMWARE UPDATE: Actual: {0}, Needed: {1}.".format(kernel_firmware_version, KERNEL_FIRMWARE_ACTUAL_VERSION))
         else: print("NO KERNEL FIRMWARE UPDATE NEEDED: Actual: {0}, Needed: {1}.".format(kernel_firmware_version, KERNEL_FIRMWARE_ACTUAL_VERSION))
 
-        print("Actual kernel-devel installed: {0}.".format(first_output[kernel_devel_string.start():kernel_devel_string.end()]))     
+        print("Actual kernel-devel installed: {0}.".format(first_output[kernel_devel_string.start():kernel_devel_string.end()]))
 
         if(kernel_devel_version < KERNEL_DEVEL_ACTUAL_VERSION): print("NEED KERNEL DEVEL UPDATE: Actual: {0}, Needed: {1}.".format(kernel_devel_version, KERNEL_DEVEL_ACTUAL_VERSION))
         else: print("NO KERNEL DEVEL UPDATE NEEDED: Actual: {0}, Needed: {1}.".format(kernel_devel_version, KERNEL_DEVEL_ACTUAL_VERSION))
 
         p2.stdout.close()
-
+        
 def start_script():
         print(BETWEEN_METHODS)
         start_time = time.time()
@@ -138,4 +142,4 @@ def start_script():
         print("It took {0:.4f} seconds to run.".format(finish_time))
         print(BETWEEN_METHODS)
 
-start_script()        
+start_script()
