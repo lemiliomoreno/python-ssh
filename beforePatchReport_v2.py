@@ -47,9 +47,6 @@ class server():
         def start_server_check(self):
                 self.get_release(self.get_command_output(commands['release'][0], commands['release'][1]))
 
-
-
-
 a = server()
 print(a.release, a.qpk, a.root_space, a.kernel)
 a.start_server_check()
