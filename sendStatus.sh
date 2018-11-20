@@ -3,8 +3,8 @@
 OUTPUT=$(python /home/emilio/python_devel/beforePatchingCheck/before_patch_report.py)
 DATE=$(date)
 SUBJECT="Before patching report ${DATE}"
-FROM="lemiliomoreno@gmail.com"
-RECIPIENTS="my_email@company.com"
+FROM="sender@gmail.com"
+RECIPIENTS="receiver@company.com"
 
 MAIL="subject:${SUBJECT}\nfrom:${FROM}\n${OUTPUT}"
 
