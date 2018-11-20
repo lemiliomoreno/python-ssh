@@ -39,8 +39,16 @@ class server():
 
                 return output
 
+        def get_release(self, output):
+                SEPARATOR_LOCATION=13
+                if(re.search(release_strings['redhat'], output, re.I) or re.search(release_strings['centos'], output, re.I)): self.release = output[SEPARATOR_LOCATION:-2]
+                else: self.release = False
+
         def start_server_check(self):
-                self.release = self.get_command_output(commands['release'][0], commands['release'][1])
+                self.get_release(self.get_command_output(commands['release'][0], commands['release'][1]))
+
+
+
 
 a = server()
 print(a.release, a.qpk, a.root_space, a.kernel)
