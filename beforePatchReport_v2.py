@@ -10,12 +10,12 @@ commands = {'release' : [['/bin/cat', '/etc/os-release'], ['/bin/grep', 'PRETTY_
             'kernel' : [['/usr/bin/rpm', '-qa'], ['/usr/bin/sort', '-r']]
             }
 
-regular_expressions = {'kernel' : ['kernel-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 754],
-                        'firmware' : ['kernel-tools-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 754],
-                        'devel' : ['kernel-headers-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 754],
-                        'qpk' : ['qpk20[0-9]{4}', 1811]
+regular_expressions = {'kernel' : ['kernel-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 999],
+                        'firmware' : ['kernel-tools-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 999],
+                        'devel' : ['kernel-headers-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 999],
+                        'qpk' : ['glibc', 1811]
                         }
-
+#qpk20[0-9]{4}
 release_strings = {'redhat' : 'red hat', 'centos' : 'centos', 'ubuntu' : 'ubuntu', 'fedora' : 'fedora'}
 
 class server():
@@ -44,10 +44,49 @@ class server():
                 if(re.search(release_strings['redhat'], output, re.I) or re.search(release_strings['centos'], output, re.I)): self.release = output[SEPARATOR_LOCATION:-2]
                 else: self.release = False
 
+        def get_qpk(self, output):
+                location = re.search(regular_expressions['qpk'][0], output)
+                self.qpk = output[location.start():location.end()]
+
+        def get_root_space(self, output):
+                if(output[:3] == '100'): self.root_space = 100
+                else: self.root_space = int(output[:2])
+
+        def get_kernel(self, output):
+                location = re.search(regular_expressions['kernel'][0], output)
+                self.kernel['kernel'] = output[location.start():location.end()]
+
+                location = re.search(regular_expressions['firmware'][0], output)
+                self.kernel['firmware'] = output[location.start():location.end()]
+
+                location = re.search(regular_expressions['devel'][0], output)
+                self.kernel['devel'] = output[location.start():location.end()]
+
+        def make_report(self):
+                print(BETWEEN_METHODS)
+                print('Server release: {0}'.format(self.release))
+                print('QPK version: {0}'.format(self.qpk))
+
+                if(self.root_space >= 85): print('Root space: {0}%, need more than 15% to patch'.format(abs(self.root_space-100)))
+                else: print('Root space: {0}%'.format(abs(self.root_space-100)))
+
+                if(int(self.kernel['kernel'][-3:]) < regular_expressions['kernel'][1]): print("Kernel: {0}, needed version: {1}".format(self.kernel['kernel'], regular_expressions['kernel'][1]))
+                else: print('Kernel: {0}, no update needed'.format(self.kernel['kernel']))
+
+                if(int(self.kernel['firmware'][-3:]) < regular_expressions['firmware'][1]): print("Kernel-firmware: {0}, needed version: {1}".format(self.kernel['firmware'], regular_expressions['firmware'][1]))
+                else: print('Kernel-firmware: {0}, no update neeeded'.format(self.kernel['firmware']))
+
+                if(int(self.kernel['devel'][-3:]) < regular_expressions['devel'][1]): print('Kernel-devel: {0}, needed version: {1}'.format(self.kernel['devel'], regular_expressions['devel'][1]))
+                else: print('Kernel-devel: {0}, no update needed'.format(self.kernel['devel']))
+
+                print(BETWEEN_METHODS)
+
         def start_server_check(self):
                 self.get_release(self.get_command_output(commands['release'][0], commands['release'][1]))
+                self.get_qpk(self.get_command_output(commands['qpk'][0], commands['qpk'][1]))
+                self.get_root_space(self.get_command_output(commands['root_space'][0], commands['root_space'][1]))
+                self.get_kernel(self.get_command_output(commands['kernel'][0], commands['kernel'][1]))
 
-a = server()
-print(a.release, a.qpk, a.root_space, a.kernel)
+a=server()
 a.start_server_check()
-print(a.release, a.qpk, a.root_space, a.kernel)
+a.make_report()
