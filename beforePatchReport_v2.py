@@ -40,6 +40,7 @@ class server():
                         p1.stdout.close()
 
                         return p2.communicate()[0].decode('utf-8')
+                      
         def get_release(self, output):
                 if(re.search(release_strings['redhat'], output, re.I) or re.search(release_strings['centos'], output, re.I)): self.release = output[:-1]
                 else: self.release = False
