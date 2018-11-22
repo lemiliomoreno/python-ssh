@@ -9,7 +9,8 @@ BETWEEN_METHODS='--------------------'
 
 # This are the commands that are we going to use with the method 'get_command_output'
 # If it only has one value, the second parameter when calling the method, MUST be None
-commands = {'release' : ['/bin/cat', '/etc/redhat-release'],
+commands = {'hostname' : 'hostname',
+		'release' : ['/bin/cat', '/etc/redhat-release'],
 		'qpk' : [['/usr/bin/rpm', '-qa'], ['sort', '-r']],
 		'root_space' : [['/bin/df', '/'], ['/usr/bin/awk', 'NR==2 {print $5}']],
 		'kernel' : [['/usr/bin/rpm', '-qa'], ['/usr/bin/sort', '-r']],
@@ -62,7 +63,11 @@ class server():
 			p1.stdout.close()
 
 			return p2.communicate()[0].decode('utf-8')
-					  
+		
+	# It will return the hostname minus 1 (the '\n')	
+        def get_hostname(self, output):
+                self.hostname = output[:-1]
+
 	# It will iterate between the releases allowed in 'release_string' dictionary
 	def get_release(self, output):
 		for item in release_strings:
@@ -102,6 +107,7 @@ class server():
 	def make_report(self):
 		print(BETWEEN_METHODS)
 
+		print('Hostname: {0}'.format(self.hostname))
 		print('Server release: {0}'.format(self.release))
 		print('QPK version: {0}'.format(self.qpk))
 
@@ -135,6 +141,7 @@ class server():
 
 	def start_server_check(self):
 		time_to_run = time.time()
+		self.get_hostname(self.get_command_output(commands['hostname'], None))
 		self.get_release(self.get_command_output(commands['release'], None))
 		self.get_qpk(self.get_command_output(commands['qpk'][0], commands['qpk'][1]))
 		self.get_root_space(self.get_command_output(commands['root_space'][0], commands['root_space'][1]))
