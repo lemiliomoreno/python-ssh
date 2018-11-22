@@ -38,7 +38,8 @@ repos_strings = {'linxcoe' : 'redhat.*\.repo', 'hpit' : 'hpit'}
 
 class server():
 	# Constructor of the class, all initialize in None
-	def __init__(self):
+	def __init__(self):.
+		self.hostname = None
 		self.release = None
 		self.qpk = None
 		self.root_space = None
