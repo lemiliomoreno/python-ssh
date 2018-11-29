@@ -63,7 +63,7 @@ and add it.
 To run the script, you should only run the following commands:
 ```
 $ cd ~
-$ ./before_patch_report/what_to_do
+$ ./before_patch_report/what_to_do.sh
 ```
 This will create a file called:
 > BeforePatchReport.log
