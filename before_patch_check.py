@@ -130,7 +130,7 @@ class server():
                 report.close()
 
         def print_for_table(self):
-                print('{0:40}  {1:40}'.format(self.hostname, self.qpk))
+                print('{0:40}  {1:10}  {2:50}'.format(self.hostname, self.qpk, self.release))
 
         def start_server_check(self):
                 self.get_hostname(get_command_output(commands['hostname'], None))
