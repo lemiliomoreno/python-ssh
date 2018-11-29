@@ -1,12 +1,14 @@
 # python-ssh
 SSH connection to retrieve server information with Python and Bash
 
+## Development
 To retrieve the project and work from another host:
 ```
 $ git clone https://github.com/lemiliomoreno/python-ssh.git
 ```
 When doing this, you will still need to create the *passwd.txt* and *servers.txt* files.
 
+## Working with it
 To start working with this script, you will need first to copy the source files and directories for the script to work, for that, we should use the following commands from 'itxadmin':
 ```
 $ mkdir ~/before_patch_report
