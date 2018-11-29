@@ -69,7 +69,10 @@ and add it. You should change the permissions of that file so it cannot be acces
 ```
 $ chmod 400 ~/before_patch_report/.private_files/passwd.txt
 ```
-
+Before running the script, make sure you have the files *commands.sh* and *what_to_do.sh* in executable mode, if not:
+```
+$ chmod 750 ~/before_patch_report/commands.sh ~/before_patch_report/what_to_do.sh
+```
 To run the script, you should only run the following commands:
 ```
 $ cd ~
