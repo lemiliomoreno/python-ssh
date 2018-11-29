@@ -23,7 +23,6 @@ Then we should create the *servers.txt* and *passwd.txt*, I recommend saving *pa
 $ touch ~/before_patch_report/servers.txt
 $ mkdir ~/before_patch_report/.private_files
 $ touch ~/before_patch_report/.private_files/passwd.txt
-$ chmod 400 ~/before_patch_report/.private_files/passwd.txt
 ```
 Running these commands, we should got the following directories:
 ```
@@ -66,7 +65,10 @@ or
 ```
 $ vim ~/before_patch_report/.private_files/passwd.txt
 ```
-and add it.
+and add it. You should change the permissions of that file so it cannot be accessed by other users:
+```
+$ chmod 400 ~/before_patch_report/.private_files/passwd.txt
+```
 
 To run the script, you should only run the following commands:
 ```
