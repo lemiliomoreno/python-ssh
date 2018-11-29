@@ -29,7 +29,7 @@ before_patch_report/
 ├── before_patch_check.py   # Script to run in the server
 ├── commands.sh             # Commands that are going to run thru SSH
 ├── .private_files
-│   └── passwd.txt          # Password of your account (may change when private key supported
+│   └── passwd.txt          # Password of your account (may change when private key supported)
 ├── servers.txt             # List of servers to check
   └── what_to_do.sh         # Configuration of SSH connection and username 
 ```
