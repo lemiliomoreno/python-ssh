@@ -23,6 +23,16 @@ release_strings = {'redhat' : 'red hat', 'centos' : 'centos', 'ubuntu' : 'ubuntu
 
 repos_strings = {'linxcoe' : 'linuxcoe-.*\.repo', 'hpit' : 'hpit-.*\.repo', 'btdt' : 'btdt-.*\.repo', 'epel' : 'epel.repo', 'rhel' : 'rhel-.*\.repo'}
 
+class bcolors:
+        HEADER = '\033[95m'
+        OKBLUE = '\033[94m'
+        OKGREEN = '\033[92m'
+        WARNING = '\033[93m'
+        FAIL = '\033[91m'
+        ENDC = '\033[0m'
+        BOLD = '\033[1m'
+        UNDERLINE = '\033[4m'
+
 def get_command_output(first_command, second_command):
         #print("Sending command to the shell...")
         #print("Command 1: {0}, command 2: {1}".format(first_command, second_command))
@@ -45,6 +55,7 @@ class server():
                 self.hostname = None
                 self.release = None
                 self.qpk = None
+                self.qpk_status = None
                 self.root_space = None
                 self.kernel = {'kernel' : None, 'firmware' : None, 'devel' : None}
                 self.repos = list()
@@ -99,8 +110,12 @@ class server():
                 report.write('Hostname: {0}\n'.format(self.hostname))
                 report.write('Server release: {0}\n'.format(self.release))
 
-                if(int(self.qpk[-4:]) < regular_expressions['qpk'][1]): report.write('QPK version: {0}, needed version: {1}\n'.format(self.qpk, regular_expressions['qpk'][1]))
-                else: report.write('QPK version: {0}, no update needed\n'.format(self.qpk))
+                if(int(self.qpk[-4:]) < regular_expressions['qpk'][1]):
+                        report.write('QPK version: {0}, needed version: {1}\n'.format(self.qpk, regular_expressions['qpk'][1]))
+                        self.qpk_status = False
+                else:
+                        report.write('QPK version: {0}, no update needed\n'.format(self.qpk))
+                        self.qpk_status = True
 
                 if(self.root_space >= 85): report.write('Root space: {0}%, need more than 15% to patch\n'.format(abs(self.root_space-100)))
                 else: report.write('Root space: {0}%\n'.format(abs(self.root_space-100)))
@@ -130,7 +145,10 @@ class server():
                 report.close()
 
         def print_for_table(self):
-                print('{0:40}  {1:10}  {2:50}'.format(self.hostname, self.qpk, self.release))
+                if(self.qpk_status):
+                        print('{0:40}  {1:9}  {2}{3:3}{4}  {5:50}'.format(self.hostname, self.qpk, bcolors.OKGREEN, 'OK', bcolors.ENDC, self.release))
+                else:
+                        print('{0:40}  {1:9}  {2}{3:3}{4}  {5:50}'.format(self.hostname, self.qpk, bcolors.WARNING, 'OLD', bcolors.ENDC, self.release))
 
         def start_server_check(self):
                 self.get_hostname(get_command_output(commands['hostname'], None))
