@@ -3,7 +3,7 @@ SSH connection to retrieve server information with Python and Bash
 
 To retrieve the project and work from another host:
 ```
-$ git clone //github.com/lemiliomoreno/python-ssh.git
+$ git clone https://github.com/lemiliomoreno/python-ssh.git
 ```
 When doing this, you will still need to create the *passwd.txt* and *servers.txt* files.
 
