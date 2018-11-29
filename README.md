@@ -31,7 +31,7 @@ before_patch_report/
 ├── .private_files
 │   └── passwd.txt          # Password of your account (may change when private key supported)
 ├── servers.txt             # List of servers to check
-└── what_to_do.sh         # Configuration of SSH connection and username 
+└── what_to_do.sh           # Configuration of SSH connection and username 
 ```
 When all the files are copied, we need to change the configuration file *what_to_do.sh* in order to start working with the script, we should open it:
 ```
