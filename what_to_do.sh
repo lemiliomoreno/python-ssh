@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ONYL CHANGE THIS VARIABLE
+# ONLY CHANGE THIS VARIABLE
 USERNAME="username"
 
 SERVERS=$(cat ~/before_patch_report/servers.txt)
