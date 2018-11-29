@@ -8,7 +8,7 @@ $ git clone https://github.com/lemiliomoreno/python-ssh.git
 ```
 When doing this, you will still need to create the *passwd.txt* and *servers.txt* files.
 
-### Creatingfiles and directories needed
+### Creating files and directories needed
 To start working with this script, you will need first to copy the source files and directories for the script to work, for that, we should use the following commands from 'itxadmin':
 ```
 $ mkdir ~/before_patch_report
