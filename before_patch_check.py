@@ -141,7 +141,8 @@ class server():
                                 report.write('---{0}{1}\n'.format(commands['repos'][1], self.repos[x][y]))
 
                 report.write('{0}\n'.format(BETWEEN_METHODS))
-                report.write('It took {0:.4} seconds to run\n'.format(time.time()-self.time_to_run))
+                self.time_to_run = time.time()-self.time_to_run
+                report.write('It took {0:.4} seconds to run\n'.format(self.time_to_run))
                 report.close()
 
         def print_for_table(self):
