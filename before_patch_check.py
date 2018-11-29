@@ -147,9 +147,9 @@ class server():
 
         def print_for_table(self):
                 if(self.qpk_status):
-                        print('{0:40}  {1:9}  {2}{3:3}{4}  {5:50}  {6}'.format(self.hostname, self.qpk, bcolors.OKGREEN, 'OK', bcolors.ENDC, self.release, self.time_to_run))
+                        print('{0:40}  {1:9}  {2}{3:3}{4}  {5:50}  {6:.4}'.format(self.hostname, self.qpk, bcolors.OKGREEN, 'OK', bcolors.ENDC, self.release, self.time_to_run))
                 else:
-                        print('{0:40}  {1:9}  {2}{3:3}{4}  {5:50}  {6}'.format(self.hostname, self.qpk, bcolors.WARNING, 'OLD', bcolors.ENDC, self.release, self.time_to_run))
+                        print('{0:40}  {1:9}  {2}{3:3}{4}  {5:50}  {6:.4}'.format(self.hostname, self.qpk, bcolors.WARNING, 'OLD', bcolors.ENDC, self.release, self.time_to_run))
 
         def start_server_check(self):
                 self.get_hostname(get_command_output(commands['hostname'], None))
