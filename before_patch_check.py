@@ -95,7 +95,7 @@ class server():
                 if(location != None):
                         self.kernel['devel'] = output[location.start():location.end()]
                 else:
-                        self.kernel['firmware'] = None
+                        self.kernel['devel'] = None
 
         def get_repos(self, output):
                 for regex in repos_strings:
