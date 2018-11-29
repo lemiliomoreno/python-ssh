@@ -8,7 +8,7 @@ $ git clone https://github.com/lemiliomoreno/python-ssh.git
 ```
 When doing this, you will still need to create the *passwd.txt* and *servers.txt* files.
 
-### Working with it
+### Creatingfiles and directories needed
 To start working with this script, you will need first to copy the source files and directories for the script to work, for that, we should use the following commands from 'itxadmin':
 ```
 $ mkdir ~/before_patch_report
@@ -34,6 +34,7 @@ before_patch_report/
 ├── servers.txt             # List of servers to check
 └── what_to_do.sh           # Configuration of SSH connection and username 
 ```
+### Configuration files
 When all the files are copied, we need to change the configuration file *what_to_do.sh* in order to start working with the script, we should open it:
 ```
 $ vim ~/before_patch_report/what_to_do.sh
@@ -73,6 +74,7 @@ Before running the script, make sure you have the files *commands.sh* and *what_
 ```
 $ chmod 750 ~/before_patch_report/commands.sh ~/before_patch_report/what_to_do.sh
 ```
+### Running the script
 To run the script, you should only run the following commands:
 ```
 $ cd ~
