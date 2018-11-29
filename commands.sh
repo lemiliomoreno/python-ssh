@@ -1,5 +1,5 @@
 #!/bin/bash
 
-python ${HOME}/before_patch_check.py > ${HOME}/Before_Patch_Check.txt
-cat ${HOME}/Before_Patch_Check.txt
+python ${HOME}/before_patch_check.py
 rm ${HOME}/before_patch_check.py
+
