@@ -18,11 +18,11 @@ $ pbrun bash
 ```
 If you got a problem with the permissions, you can change to root, use the ```cp``` command and then change to normal user.
 
-Then we should create the *servers.txt* and *passwd.txt*, I recommend saving *passwd.txt* in a hidden folder:
+Then we should create the *servers.txt* and *login.sh*, I recommend saving *login.sh* in a hidden folder:
 ```
 $ touch ~/before_patch_report/servers.txt
 $ mkdir ~/before_patch_report/.private_files
-$ touch ~/before_patch_report/.private_files/passwd.txt
+$ touch ~/before_patch_report/.private_files/login.sh
 ```
 Running these commands, we should got the following directories:
 ```
@@ -30,20 +30,31 @@ before_patch_report/
 ├── before_patch_check.py   # Script to run in the server
 ├── commands.sh             # Commands that are going to run thru SSH
 ├── .private_files
-│   └── passwd.txt          # Password of your account (may change when private key supported)
+│   └── login.sh            # Password of your account (may change when private key supported)
 ├── servers.txt             # List of servers to check
 └── what_to_do.sh           # Configuration of SSH connection and username 
 ```
 ### Configuration files
-When all the files are copied, we need to change the configuration file *what_to_do.sh* in order to start working with the script, we should open it:
+When all the files are created, we need to change the configuration file *login.sh* in order to start working with the script, we should open it:
 ```
-$ vim ~/before_patch_report/what_to_do.sh
+$ vim ~/before_patch_report/.private_files/login.shh
 ```
-We will see the following variable:
+We will see the following variables:
 ```
 USERNAME="username"
+PASSWORD="password"
 ```
-In this variable you should put your username for your Linux account, in order to work with other company servers, the username will change.
+In this file you will change these two variables so they match with your Linux account credentials.
+
+You should change the permissions of that file so it cannot be accessed by other users:
+```
+$ chmod 400 ~/before_patch_report/.private_files/login.sh
+```
+
+**NOTE**: If you want to store the login.sh file in another place, you should modify the file *what_to_do.sh*:
+```
+source YOUR_LOGIN.SH_PATH   # This is without quotes
+```
 
 Next, you should put the list of servers that are going to be checked in *servers.txt*:
 ```
@@ -58,18 +69,6 @@ server4.hostname.com
 ```
 and save the file.
 
-For the *passwd.txt* file, you should put your password for the Linux account in that file:
-```
-$ echo "mypassword" > ~/before_patch_report/.private_files/passwd.txt
-```
-or
-```
-$ vim ~/before_patch_report/.private_files/passwd.txt
-```
-and add it. You should change the permissions of that file so it cannot be accessed by other users:
-```
-$ chmod 400 ~/before_patch_report/.private_files/passwd.txt
-```
 Before running the script, make sure you have the files *commands.sh* and *what_to_do.sh* in executable mode, if not:
 ```
 $ chmod 750 ~/before_patch_report/commands.sh ~/before_patch_report/what_to_do.sh
