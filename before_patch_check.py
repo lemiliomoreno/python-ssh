@@ -6,18 +6,18 @@ import datetime
 BETWEEN_METHODS='--------------------'
 
 commands = {'hostname' : ['hostname', '-f'],
-                'release' : ['/bin/cat', '/etc/redhat-release'],
-                'qpk' : [['/bin/rpm', '-qa'], ['/bin/sort', '-r']],
-                'root_space' : [['/bin/df', '/'], ['/usr/bin/awk', 'NR==2 {print $5}']],
-                'kernel' : [['/bin/rpm', '-qa'], ['/bin/sort', '-r']],
-                'repos' : ['/bin/ls', '/etc/yum.repos.d/']
-                }
+            'release' : ['/bin/cat', '/etc/redhat-release'],
+            'qpk' : [['/bin/rpm', '-qa'], ['/bin/sort', '-r']],
+            'root_space' : [['/bin/df', '/'], ['/usr/bin/awk', 'NR==2 {print $5}']],
+            'kernel' : [['/bin/rpm', '-qa'], ['/bin/sort', '-r']],
+            'repos' : ['/bin/ls', '/etc/yum.repos.d/']
+           }
 
 regular_expressions = {'kernel' : ['kernel-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 754],
-                        'firmware' : ['kernel-firmware-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 754],
-                        'devel' : ['kernel-devel-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 754],
-                        'qpk' : ['qpk20[0-9]{4}', 1811]
-                        }
+                       'firmware' : ['kernel-firmware-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 754],
+                       'devel' : ['kernel-devel-[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-[0-9]{1,3}', 754],
+                       'qpk' : ['qpk20[0-9]{4}', 1811]
+                      }
 
 release_strings = {'redhat' : 'red hat', 'centos' : 'centos', 'ubuntu' : 'ubuntu', 'fedora' : 'fedora'}
 
