@@ -37,10 +37,11 @@ before_patch_report/
 ### Configuration files
 When all the files are created, we need to change the configuration file *login.sh* in order to start working with the script, we should open it:
 ```
-$ vim ~/before_patch_report/.private_files/login.shh
+$ vim ~/before_patch_report/.private_files/login.sh
 ```
-We will see the following variables:
+and write the following:
 ```
+#!/bin/bash
 USERNAME="username"
 PASSWORD="password"
 ```
